@@ -19,8 +19,6 @@
   },
   "homepage": "https://github.com/HassanRaja533/range-slider-integer#readme",
   "devDependencies": {
-    "input-integer-ui-hassan_raja": "^0.0.4",
-    "range-slider-hr": "^0.0.1",
     "standardx": "^7.0.0"
   },
   "standardx": {
@@ -30,5 +28,9 @@
     "rules": {
       "camelcase": 0
     }
+  },
+  "dependencies": {
+    "input-integer-ui-hassan_raja": "^0.0.4",
+    "range-slider-hr": "^0.0.1"
   }
 }
