@@ -8,17 +8,18 @@ function range_slider_integer (opts) {
   const el = document.createElement('div')
   const shadow = el.attachShadow({ mode: 'closed' })
 
+  const rsi = document.createElement('div')
+  rsi.classList.add('rsi')
+
   const range_slider = range(opts, protocol)
   const input_integer = integer(opts, protocol)
+
+  rsi.append(range_slider, input_integer)
 
   const style = document.createElement('style')
   style.textContent = get_theme()
 
-  const output = document.createElement('div')
-  output.classList.add('output')
-  output.innerText = 0
-
-  shadow.append(range_slider, input_integer, style, output)
+  shadow.append(rsi, style)
 
   return el
 
@@ -33,17 +34,22 @@ function range_slider_integer (opts) {
     const { from, type, data } = message
     state[from].value = data
     if (type === 'update') {
-      output.innerText = data
+      let notify
+      if (from === 'range-slider-0') notify = state['input-integr-0'].notify
+      else if (from === 'input-integr-0') notify = state['range-slider-0'].notify
+
+      notify({ type, data })
     }
   }
 
   function get_theme () {
     return `
-      .output {
-        border :1px solid red;
-        padding: 20px;
-        text-align: center;
-        width: 200px;
+      .rsi {
+        padding: 5%;
+        display: grid;
+        grid-template-columns: 8fr 1fr;
+        align-items: center;
+        justify-items: center;
       }
     `
   }
